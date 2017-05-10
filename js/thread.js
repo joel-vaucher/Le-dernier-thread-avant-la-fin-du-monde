@@ -1,13 +1,17 @@
 class Thread{
-	
-	constructor(x, canvas) {
+
+	constructor(x, canvas, idthread) {
 		this.canvas = canvas;
 		this.x = x;
 		this.threadY = 20;
+		this.idthread = idthread;
 		this.color = '#000055';
-		this.content = ["case1","case2","case3","case4"];
+		this.content = [new Block(canvas, idthread, 0, "case1", 0),
+						new Block(canvas, idthread, 1, "case2", 0),
+						new Block(canvas, idthread, 2, "case3", 0),
+						new Block(canvas, idthread, 3, "case4", 0)];
 	  }
-	  
+
 	 draw(){
 		this.canvas.drawRect({
         fillStyle: '#000000',
@@ -16,19 +20,13 @@ class Thread{
         height: this.canvas.height() - 20,
         fromCenter: false
 		});
-		
-		
-		for(var i = 1; i <= this.content.length; i++){
-			this.canvas.drawRect({
-			fillStyle: '#000000',
-			x:this.x + 5, y: i * 150,
-			width: 30,
-			height: 20,
-			fromCenter: true
-			});
+
+
+		for(var i = 0; i < this.content.length; i++){
+			this.content[i].draw(this.x,  (i+1) * 150);
 		}
-	 
-	 
+
+
 		this.canvas.drawArc({
         fillStyle: this.color,
         x:this.x + 5, y: this.threadY,
@@ -36,15 +34,15 @@ class Thread{
         fromCenter: true
 		});
 	 }
-	 
+
 	 move(){
 		 if(this.threadY % 150 == 0 && this.threadY > 0){
 			 var index = this.threadY/150 - 1;
 			 if(index >= this.content.length){
-				alert("end");
+				//alert("end");
 				this.threadY = 0;
 			 }else{
-				alert(this.content[index]);
+				//alert(this.content[index]);
 			 }
 		 }
 		 this.threadY++;

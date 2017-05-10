@@ -3,6 +3,7 @@ var posX = 0;
 var tabThreads = [];
 var index = 0;
 var nbTick = 0;
+var selection = null;
 
 window.onload = function(){
     canvas = document.getElementById("canvas");
@@ -14,9 +15,9 @@ window.onload = function(){
 
     console.log(canvas.width);
 
-	tabThreads.push(new Thread(100, $('canvas')));
-	tabThreads.push(new Thread(200, $('canvas')));
-	tabThreads.push(new Thread(300, $('canvas')));
+	tabThreads.push(new Thread(100, $('canvas'), 0));
+	tabThreads.push(new Thread(200, $('canvas'), 1));
+	tabThreads.push(new Thread(300, $('canvas'), 2));
 	tabThreads[0].color = '#0000ff';
 
 
@@ -74,6 +75,17 @@ function tick() {
 
 function rename() {
     alert($('#strucname').val());
+    selection.name = $('#strucname').val();
 
+    return false;
+}
+
+function restate() {
+    if(selection != null){
+        if($("input[type='radio'].state").is(':checked')) {
+            selection.state = $("input[type='radio'].state:checked").val();
+            alert(selection.state);
+        }
+    }
     return false;
 }
