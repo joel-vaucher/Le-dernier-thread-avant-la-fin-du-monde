@@ -6,10 +6,10 @@ class Thread{
 		this.threadY = 20;
 		this.idthread = idthread;
 		this.color = '#000055';
-		this.content = [new Block(canvas, idthread, 0, "case1", 0),
-						new Block(canvas, idthread, 1, "case2", 0),
-						new Block(canvas, idthread, 2, "case3", 0),
-						new Block(canvas, idthread, 3, "case4", 0)];
+		this.content = [new Block(canvas, idthread, 0),
+						new Block(canvas, idthread, 1),
+						new Block(canvas, idthread, 2),
+						new Block(canvas, idthread, 3)];
 		this.previous = null;
 	  }
 
@@ -35,9 +35,10 @@ class Thread{
         fromCenter: true
 		});
 	 }
+
 	 update(){
 		 if(this.threadY % 150 == 0 && this.threadY > 0){
-			 if(this.previous != null && !this.previous.canExit()){
+			 if(this.previous != null && !this.previous.mutex.canExit()){
 				 return false;
 			 }else{
 				 this.previous = null;
@@ -48,8 +49,8 @@ class Thread{
 				this.threadY = 0;
 			 }else{
 				//alert(this.content[index]);
-				if(this.content[index] instanceof Mutex){
-					if(!this.content[index].canEnter()){
+				if(this.content[index] instanceof MutexBlock){
+					if(!this.content[index].mutex.canEnter()){
 						return false;
 					}
 					this.previous = this.content[index];

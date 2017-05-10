@@ -7,6 +7,7 @@
     <script src="js/jquery-3.2.0.min.js"></script>
     <script src="js/jcanvas.min.js"></script>
     <script src="js/block.js"></script>
+    <script src="js/mutexblock.js"></script>
     <script src="js/thread.js"></script>
     <script src="js/mutex.js"></script>
     <script src="js/main.js"></script>
@@ -23,13 +24,13 @@
                     <input type="submit" value="rename"/>
                 </form>
                 <form method="get" onsubmit="return restate();">
-                    <input type="radio" name="state" class="state" value="0">
+                    <input type="radio" name="state" id="staterien" value="0">
                     <span>rien</span>
-                    <input type="radio" name="state" class="state" value="1">
+                    <input type="radio" name="state" id="statemutex" value="1">
                     <span>mutex</span>
-                    <input type="radio" name="state" class="state" value="2">
+                    <input type="radio" name="state" id="statesemaphore" value="2">
                     <span>semaphore</span>
-                    <input type="radio" name="state" class="state" value="3">
+                    <input type="radio" name="state" id="statebarrier" value="3">
                     <span>barrier</span>
                     <input type="submit" value="restate"/>
                 </form>

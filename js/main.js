@@ -1,7 +1,7 @@
 var canvas = null;
 var posX = 0;
 var tabThreads = [];
-var tabBlocks = [];
+var tabMutex = [];
 var index = 0;
 var nbTick = 0;
 var selection = null;
@@ -19,19 +19,19 @@ window.onload = function(){
 	tabThreads.push(new Thread(300, $('canvas'), 2));
 	tabThreads[0].color = '#0000ff';
 
-	tabBlocks.push(new Mutex($('canvas'), 0, 0, "mutex", 0));
-	tabBlocks.push(new Mutex($('canvas'), 0, 0, "mutex2", 0));
-	
-	tabThreads[0].content[0] = tabBlocks[0];
-	tabThreads[1].content[0] = tabBlocks[0];
-	tabThreads[2].content[0] = tabBlocks[0];
-	
-	tabThreads[0].content[1] = tabBlocks[1];
-	tabThreads[1].content[1] = tabBlocks[1];
-	tabThreads[2].content[1] = tabBlocks[1];
+	tabMutex["m1"] = new Mutex();
+	tabMutex["m2"] = new Mutex();
+
+	tabThreads[0].content[0] = new MutexBlock($('canvas'), 0, 0, tabMutex["m1"]);
+	tabThreads[1].content[0] = new MutexBlock($('canvas'), 1, 0, tabMutex["m1"]);
+	tabThreads[2].content[0] = new MutexBlock($('canvas'), 2, 0, tabMutex["m1"]);
+
+	tabThreads[0].content[1] = new MutexBlock($('canvas'), 0, 1, tabMutex["m2"]);
+	tabThreads[1].content[1] = new MutexBlock($('canvas'), 1, 1, tabMutex["m2"]);
+	tabThreads[2].content[1] = new MutexBlock($('canvas'), 2, 1, tabMutex["m2"]);
 
 	updateListBlocks();
-	
+
     tick();
 };
 
@@ -90,18 +90,17 @@ function tick() {
 	}
 }
 
-function rename() {
-    alert($('#strucname').val());
-    selection.name = $('#strucname').val();
-
-    return false;
-}
-
 function restate() {
+    var name = $("#strucname").val();
+    var isMutex = $("#statemutex").is(':checked');
+    var idt = selection.idthread;
+    var idb = selection.idblock;
     if(selection != null){
-        if($("input[type='radio'].state").is(':checked')) {
-            selection.state = $("input[type='radio'].state:checked").val();
-            alert(selection.state);
+        if(isMutex) {
+            if(!(name in tabMutex)){
+                tabMutex[name] = new Mutex();
+            }
+            tabThreads[idt].content[idb] = new MutexBlock($('canvas'), idt, idb, tabMutex[name]);
         }
     }
     return false;
@@ -110,9 +109,9 @@ function restate() {
 function updateListBlocks(){
 	var select = document.getElementById("listBlocks");
 	select.options = [];
-	for (i=0; i<tabBlocks.length; i++)
-	{
-		select.options.add(new Option(tabBlocks[i].name, i, false, false));
+    var cpt = 0;
+	for(var key in tabMutex) {
+		select.options.add(new Option(key, cpt++, false, false));
 	}
-	
+
 }
