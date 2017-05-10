@@ -100,11 +100,14 @@ function tick() {
 
 function restate() {
     var name = $("#strucname").val();
+    var isRien = $("#staterien").is(':checked');
     var isMutex = $("#statemutex").is(':checked');
     var idt = selection.idthread;
     var idb = selection.idblock;
     if(selection != null){
-        if(isMutex) {
+        if(isRien){
+            tabThreads[idt].content[idb] = new Block($('canvas'), idt, idb);
+        } else if (isMutex) {
             if(!(name in tabMutex)){
                 tabMutex[name] = new Mutex();
             }
