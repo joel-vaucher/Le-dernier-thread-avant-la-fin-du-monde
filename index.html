@@ -19,11 +19,10 @@
                 <canvas id="canvas"></canvas>
             </div>
             <div class="down-half">
-                <form method="get" onsubmit="return rename();">
-                    <input type="text" name="strucname" id="strucname"/>
-                    <input type="submit" value="rename"/>
-                </form>
                 <form method="get" onsubmit="return restate();">
+                    <span id="selection"></span><br/>
+                    <input type="text" name="strucname" id="strucname"/>
+                    <br/>
                     <input type="radio" name="state" id="staterien" value="0">
                     <span>rien</span>
                     <input type="radio" name="state" id="statemutex" value="1">

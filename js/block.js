@@ -19,6 +19,7 @@ class Block{
             click: function(layer){
                 var coords = layer.name.split(',');
                 selection = tabThreads[coords[0]].content[coords[1]];
+                $('#selection').text("thread:"+coords[0]+",block:"+coords[1]);
             }
     	});
 
