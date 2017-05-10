@@ -38,7 +38,7 @@ class Thread{
 
 	 update(){
 		 if(this.threadY % 150 == 0 && this.threadY > 0){
-			 if(this.previous != null && !this.previous.mutex.canExit()){
+			 if(this.previous != null && !this.previous.element.canExit(this.idthread)){
 				 return false;
 			 }else{
 				 this.previous = null;
@@ -49,8 +49,8 @@ class Thread{
 				this.threadY = 0;
 			 }else{
 				//alert(this.content[index]);
-				if(this.content[index] instanceof MutexBlock){
-					if(!this.content[index].mutex.canEnter()){
+				if(this.content[index].element != null){
+					if(!this.content[index].element.canEnter(this.idthread)){
 						return false;
 					}
 					this.previous = this.content[index];

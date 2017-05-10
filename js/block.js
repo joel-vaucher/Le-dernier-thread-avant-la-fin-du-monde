@@ -1,9 +1,10 @@
 class Block{
-    constructor(canvas, idthread, idblock) {
+    constructor(canvas, idthread, idblock, color = '#000000', element=null) {
         this.canvas = canvas;
         this.idthread = idthread;
         this.idblock = idblock;
-        this.color = '#000000';
+        this.color = color;
+		this.element = element;
 	  }
 
     draw(x, y){
@@ -12,7 +13,7 @@ class Block{
             groups:[this.name],
             name: this.idthread+","+this.idblock,
     		fillStyle: this.color,
-    		x:x, y:y,
+    		x:x+5, y:y,
     		width: 30,
     		height: 20,
     		fromCenter: true,

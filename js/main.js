@@ -2,6 +2,8 @@ var canvas = null;
 var posX = 0;
 var tabThreads = [];
 var tabMutex = [];
+var tabSemaphore = [];
+var tabBarriere = [];
 var index = 0;
 var nbTick = 0;
 var selection = null;
@@ -21,14 +23,20 @@ window.onload = function(){
 
 	tabMutex["m1"] = new Mutex();
 	tabMutex["m2"] = new Mutex();
+	tabSemaphore["s1"] = new Semaphore(2);
+	tabBarriere["b1"] = new Barriere(3);
 
-	tabThreads[0].content[0] = new MutexBlock($('canvas'), 0, 0, tabMutex["m1"]);
-	tabThreads[1].content[0] = new MutexBlock($('canvas'), 1, 0, tabMutex["m1"]);
-	tabThreads[2].content[0] = new MutexBlock($('canvas'), 2, 0, tabMutex["m1"]);
-
-	tabThreads[0].content[1] = new MutexBlock($('canvas'), 0, 1, tabMutex["m2"]);
-	tabThreads[1].content[1] = new MutexBlock($('canvas'), 1, 1, tabMutex["m2"]);
-	tabThreads[2].content[1] = new MutexBlock($('canvas'), 2, 1, tabMutex["m2"]);
+	tabThreads[0].content[0] = new Block($('canvas'), 0, 0, '#00ff00', tabSemaphore["s1"]);
+	tabThreads[1].content[0] = new Block($('canvas'), 1, 0, '#00ff00', tabSemaphore["s1"]);
+	tabThreads[2].content[0] = new Block($('canvas'), 2, 0, '#00ff00', tabSemaphore["s1"]);
+	
+	tabThreads[0].content[1] = new Block($('canvas'), 0, 1, '#ff0000', tabMutex["m2"]);
+	tabThreads[1].content[1] = new Block($('canvas'), 1, 1, '#ff0000', tabMutex["m2"]);
+	tabThreads[2].content[1] = new Block($('canvas'), 2, 1, '#ff0000', tabMutex["m2"]);
+	
+	tabThreads[0].content[2] = new Block($('canvas'), 0, 1, '#0000ff', tabBarriere["b1"]);
+	tabThreads[1].content[2] = new Block($('canvas'), 1, 1, '#0000ff', tabBarriere["b1"]);
+	tabThreads[2].content[2] = new Block($('canvas'), 2, 1, '#0000ff', tabBarriere["b1"]);
 
 	updateListBlocks();
 

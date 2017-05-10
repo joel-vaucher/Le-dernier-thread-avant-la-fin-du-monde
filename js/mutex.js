@@ -3,7 +3,7 @@ class Mutex{
 		this.lock = false;
 	}
 
-	canEnter(){
+	canEnter(threadId){
 		if(this.lock){
 			return false;
 		}
@@ -11,7 +11,7 @@ class Mutex{
 		return true;
 	}
 
-	canExit(){
+	canExit(threadId){
 		this.lock = false;
 		return true;
 	}
