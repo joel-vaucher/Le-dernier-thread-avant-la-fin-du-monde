@@ -20,6 +20,15 @@ window.onload = function(){
 	tabThreads.push(new Thread(300, $('canvas'), 2));
 	tabThreads[0].color = '#0000ff';
 
+	var mutex = new Mutex();
+	var mutex2 = new Mutex();
+	tabThreads[0].content[0] = mutex;
+	tabThreads[1].content[0] = mutex;
+	tabThreads[2].content[0] = mutex;
+	
+	tabThreads[0].content[1] = mutex2;
+	tabThreads[1].content[1] = mutex2;
+	tabThreads[2].content[1] = mutex2;
 
     tick();
 };
@@ -59,18 +68,24 @@ function resize(){
     canvas.height =  parseInt(displayHeight * 0.8);
 }
 
+function changeThread(){
+	nbTick = 0;
+	tabThreads[index].color = '#000055';
+	index = (index+1)%tabThreads.length;
+	tabThreads[index].color = '#0000ff';
+}
+
 function tick() {
 	nbTick++;
 	if(nbTick > 100){
-		nbTick = 0;
-		tabThreads[index].color = '#000055';
-		index = (index+1)%tabThreads.length;
-		tabThreads[index].color = '#0000ff';
+		changeThread();
 	}
 	requestAnimationFrame(tick);
 	resize();
 	drawMicroProcesseur();
-	tabThreads[index].move();
+	if(!tabThreads[index].update()){
+		changeThread();
+	}
 }
 
 function rename() {
