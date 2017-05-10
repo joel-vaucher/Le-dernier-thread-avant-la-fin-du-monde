@@ -5,9 +5,7 @@ class Barriere{
 		this.nbThreadMax = nbThreadMax;
 	}
 	
-	canEnter(threadId){
-		console.log(threadId + "entre\nAttente: " + this.listThread.length + "\nSortie: " + this.listThreadExit.length);
-		
+	canEnter(threadId){		
 		var index = this.listThreadExit.indexOf(threadId);
 		if(index != -1){
 			this.listThreadExit.splice(index, 1);

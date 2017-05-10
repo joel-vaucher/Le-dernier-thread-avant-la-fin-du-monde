@@ -45,10 +45,8 @@ class Thread{
 			 }
 			 var index = this.threadY/150 - 1;
 			 if(index >= this.content.length){
-				//alert("end");
 				this.threadY = 0;
 			 }else{
-				//alert(this.content[index]);
 				if(this.content[index].element != null){
 					if(!this.content[index].element.canEnter(this.idthread)){
 						return false;
