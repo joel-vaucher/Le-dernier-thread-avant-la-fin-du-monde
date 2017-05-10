@@ -5,7 +5,8 @@ class Thread{
 		this.x = x;
 		this.threadY = 20;
 		this.color = '#000055';
-		this.content = ["case1","case2","case3","case4"];
+		this.content = [null,null,null,null];
+		this.previous = null;
 	  }
 	  
 	 draw(){
@@ -37,16 +38,28 @@ class Thread{
 		});
 	 }
 	 
-	 move(){
+	 update(){
 		 if(this.threadY % 150 == 0 && this.threadY > 0){
+			 if(this.previous != null && !this.previous.canExit()){
+				 return false;
+			 }else{
+				 this.previous = null;
+			 }
 			 var index = this.threadY/150 - 1;
 			 if(index >= this.content.length){
-				alert("end");
+				//alert("end");
 				this.threadY = 0;
 			 }else{
-				alert(this.content[index]);
+				//alert(this.content[index]);
+				if(this.content[index] instanceof Mutex){
+					if(!this.content[index].canEnter()){
+						return false;
+					}
+					this.previous = this.content[index];
+				}
 			 }
 		 }
 		 this.threadY++;
+		 return true;
 	 }
 }
