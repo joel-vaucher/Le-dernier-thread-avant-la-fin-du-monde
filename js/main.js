@@ -13,12 +13,12 @@ window.onload = function(){
     canvas.height =  parseInt(displayHeight * 0.8);
 
     console.log(canvas.width);
-	
+
 	tabThreads.push(new Thread(100, $('canvas')));
 	tabThreads.push(new Thread(200, $('canvas')));
 	tabThreads.push(new Thread(300, $('canvas')));
 	tabThreads[0].color = '#0000ff';
-	
+
 
     tick();
 };
@@ -44,11 +44,11 @@ function  drawMicroProcesseur() {
         height: 100,
         fromCenter: true
     });*/
-	
+
 	for (var i = 0; i < tabThreads.length; i++) {
 		tabThreads[i].draw();
 	}
-	
+
 }
 
 function resize(){
@@ -72,4 +72,7 @@ function tick() {
 	tabThreads[index].move();
 }
 
-
+function rename() {
+    alert("bonjour");
+    return false;
+}
