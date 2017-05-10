@@ -73,6 +73,7 @@ function tick() {
 }
 
 function rename() {
-    alert("bonjour");
+    alert($('#strucname').val());
+
     return false;
 }
