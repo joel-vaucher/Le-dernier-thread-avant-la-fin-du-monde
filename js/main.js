@@ -7,6 +7,7 @@ var tabBarriere = [];
 var index = 0;
 var nbTick = 0;
 var selection = null;
+var start = false;
 
 window.onload = function(){
     canvas = document.getElementById("canvas");
@@ -26,7 +27,7 @@ window.onload = function(){
 	tabSemaphore["s1"] = new Semaphore(2);
 	tabBarriere["b1"] = new Barriere(3);
 
-	tabThreads[0].content[0] = new Block($('canvas'), 0, 0, '#00ff00', tabSemaphore["s1"]);
+	/*tabThreads[0].content[0] = new Block($('canvas'), 0, 0, '#00ff00', tabSemaphore["s1"]);
 	tabThreads[1].content[0] = new Block($('canvas'), 1, 0, '#00ff00', tabSemaphore["s1"]);
 	tabThreads[2].content[0] = new Block($('canvas'), 2, 0, '#00ff00', tabSemaphore["s1"]);
 	
@@ -36,9 +37,7 @@ window.onload = function(){
 	
 	tabThreads[0].content[2] = new Block($('canvas'), 0, 1, '#0000ff', tabBarriere["b1"]);
 	tabThreads[1].content[2] = new Block($('canvas'), 1, 1, '#0000ff', tabBarriere["b1"]);
-	tabThreads[2].content[2] = new Block($('canvas'), 2, 1, '#0000ff', tabBarriere["b1"]);
-
-	updateListBlocks();
+	tabThreads[2].content[2] = new Block($('canvas'), 2, 1, '#0000ff', tabBarriere["b1"]);*/
 
     tick();
 };
@@ -86,22 +85,28 @@ function changeThread(){
 }
 
 function tick() {
-	nbTick++;
-	if(nbTick > 100){
-		changeThread();
+	if(start){
+		nbTick++;
+		if(nbTick > 100){
+			changeThread();
+		}
+		if(!tabThreads[index].update()){
+			changeThread();
+		}
 	}
+	
 	requestAnimationFrame(tick);
 	resize();
 	drawMicroProcesseur();
-	if(!tabThreads[index].update()){
-		changeThread();
-	}
 }
 
 function restate() {
     var name = $("#strucname").val();
+    var n = $("#strucN").val();
     var isRien = $("#staterien").is(':checked');
     var isMutex = $("#statemutex").is(':checked');
+    var isSemaphore = $("#statesemaphore").is(':checked');
+    var isBarriere = $("#statebarrier").is(':checked');
     var idt = selection.idthread;
     var idb = selection.idblock;
     if(selection != null){
@@ -111,18 +116,22 @@ function restate() {
             if(!(name in tabMutex)){
                 tabMutex[name] = new Mutex();
             }
-            tabThreads[idt].content[idb] = new MutexBlock($('canvas'), idt, idb, tabMutex[name]);
+            tabThreads[idt].content[idb] = new Block($('canvas'), idt, idb, '#ff0000', tabMutex[name]);
+        } else if (isSemaphore) {
+            if(!(name in tabSemaphore)){
+                tabSemaphore[name] = new Semaphore(n);
+            }
+            tabThreads[idt].content[idb] = new Block($('canvas'), idt, idb, '#00ff00', tabSemaphore[name]);
+        } else if (isBarriere) {
+            if(!(name in tabBarriere)){
+                tabBarriere[name] = new Barriere(n);
+            }
+            tabThreads[idt].content[idb] = new Block($('canvas'), idt, idb, '#0000ff', tabBarriere[name]);
         }
     }
     return false;
 }
 
-function updateListBlocks(){
-	var select = document.getElementById("listBlocks");
-	select.options = [];
-    var cpt = 0;
-	for(var key in tabMutex) {
-		select.options.add(new Option(key, cpt++, false, false));
-	}
-
+function startStop(){
+	start = !start;
 }

@@ -22,7 +22,9 @@
             <div class="down-half">
                 <form method="get" onsubmit="return restate();">
                     <span id="selection"></span><br/>
-                    <input type="text" name="strucname" id="strucname"/>
+                    Name: <input type="text" name="strucname" id="strucname"/>
+                    <br/>
+                    N:<input type="text" name="strucN" id="strucN"/>
                     <br/>
                     <input type="radio" name="state" id="staterien" value="0">
                     <span>rien</span>
@@ -34,11 +36,10 @@
                     <span>barrier</span>
                     <input type="submit" value="restate"/>
                 </form>
+				<button onclick="startStop()">start/stop</button>
             </div>
         </div>
         <div class="right-half">
-		<select id="listBlocks">
-		</select>
         </div>
     </div>
 
