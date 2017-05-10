@@ -13,7 +13,7 @@ class Block{
             groups:[this.name],
             name: this.idthread+","+this.idblock,
     		fillStyle: '#000000',
-    		x:x, y:y,
+    		x:x+5, y:y,
     		width: 30,
     		height: 20,
     		fromCenter: true,
@@ -27,4 +27,12 @@ class Block{
     	});
 
     }
+	
+	canEnter(){
+		return true;
+	}
+	
+	canExit(){
+		return true;
+	}
 }

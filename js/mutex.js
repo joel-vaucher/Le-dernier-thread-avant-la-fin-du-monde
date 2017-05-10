@@ -1,8 +1,4 @@
-class Mutex{
-	
-	constructor() {
-		this.lock = false;
-	}
+class Mutex extends Block{
 	
 	canEnter(){
 		if(this.lock){

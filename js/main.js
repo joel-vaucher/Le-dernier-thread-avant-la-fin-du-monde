@@ -1,6 +1,7 @@
 var canvas = null;
 var posX = 0;
 var tabThreads = [];
+var tabBlocks = [];
 var index = 0;
 var nbTick = 0;
 var selection = null;
@@ -13,23 +14,24 @@ window.onload = function(){
     canvas.width = parseInt(displayWidth * 0.8);
     canvas.height =  parseInt(displayHeight * 0.8);
 
-    console.log(canvas.width);
-
 	tabThreads.push(new Thread(100, $('canvas'), 0));
 	tabThreads.push(new Thread(200, $('canvas'), 1));
 	tabThreads.push(new Thread(300, $('canvas'), 2));
 	tabThreads[0].color = '#0000ff';
 
-	var mutex = new Mutex();
-	var mutex2 = new Mutex();
-	tabThreads[0].content[0] = mutex;
-	tabThreads[1].content[0] = mutex;
-	tabThreads[2].content[0] = mutex;
+	tabBlocks.push(new Mutex($('canvas'), 0, 0, "mutex", 0));
+	tabBlocks.push(new Mutex($('canvas'), 0, 0, "mutex2", 0));
 	
-	tabThreads[0].content[1] = mutex2;
-	tabThreads[1].content[1] = mutex2;
-	tabThreads[2].content[1] = mutex2;
+	tabThreads[0].content[0] = tabBlocks[0];
+	tabThreads[1].content[0] = tabBlocks[0];
+	tabThreads[2].content[0] = tabBlocks[0];
+	
+	tabThreads[0].content[1] = tabBlocks[1];
+	tabThreads[1].content[1] = tabBlocks[1];
+	tabThreads[2].content[1] = tabBlocks[1];
 
+	updateListBlocks();
+	
     tick();
 };
 
@@ -103,4 +105,14 @@ function restate() {
         }
     }
     return false;
+}
+
+function updateListBlocks(){
+	var select = document.getElementById("listBlocks");
+	select.options = [];
+	for (i=0; i<tabBlocks.length; i++)
+	{
+		select.options.add(new Option(tabBlocks[i].name, i, false, false));
+	}
+	
 }
