@@ -8,6 +8,7 @@ var index = 0;
 var nbTick = 0;
 var selection = null;
 var start = false;
+var nbTicksForChange = 100;
 
 window.onload = function(){
     canvas = document.getElementById("canvas");
@@ -75,12 +76,13 @@ function changeThread(){
 	tabThreads[index].color = '#000055';
 	index = (index+1)%tabThreads.length;
 	tabThreads[index].color = '#0000ff';
+	nbTicksForChange = 50 + Math.random()*150;
 }
 
 function tick() {
 	if(start){
 		nbTick++;
-		if(nbTick > 100){
+		if(nbTick > nbTicksForChange){
 			changeThread();
 		}
 		if(!tabThreads[index].update()){
