@@ -36,7 +36,7 @@ window.onload = function(){
     tick();
 };
 
-function drawMicroProcesseur() {
+function draw() {
 
    //background
     $('canvas').drawRect({
@@ -92,7 +92,7 @@ function tick() {
 	
 	requestAnimationFrame(tick);
 	resize();
-	drawMicroProcesseur();
+	draw();
 }
 
 function restate() {
