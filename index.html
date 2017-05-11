@@ -23,7 +23,7 @@
 				<table border="0">
 					<form method="get" onsubmit="return restate();">
 						<tr>
-						<td><span id="selection"></span><br/></td>
+						<td colspan="3"><span id="selection"></span><br/></td>
 						</tr>
 						<tr>
 						<td>Name:</td><td colspan="2"> <input type="text" name="strucname" id="strucname"/></td>
@@ -54,7 +54,7 @@
 						<td><button onclick="startStop()">start/stop</button></td>
 					</tr>
 					<tr>
-						<td><input id="spinThreads"type="number" min="2" max="10" step="1" value="3" onchange="changeNbThread()"></td>
+						<td colspan="2">Number of threads: </td><td><input id="spinThreads"type="number" min="2" max="10" step="1" value="3" onchange="changeNbThread()"></td>
 					</tr>
 				</table>
             </div>
