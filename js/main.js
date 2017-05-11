@@ -21,18 +21,6 @@ window.onload = function(){
 	changeNbThread();
 	tabThreads[0].color = '#0000ff';
 
-	/*tabThreads[0].content[0] = new Block($('canvas'), 0, 0, '#00ff00', tabSemaphore["s1"]);
-	tabThreads[1].content[0] = new Block($('canvas'), 1, 0, '#00ff00', tabSemaphore["s1"]);
-	tabThreads[2].content[0] = new Block($('canvas'), 2, 0, '#00ff00', tabSemaphore["s1"]);
-	
-	tabThreads[0].content[1] = new Block($('canvas'), 0, 1, '#ff0000', tabMutex["m2"]);
-	tabThreads[1].content[1] = new Block($('canvas'), 1, 1, '#ff0000', tabMutex["m2"]);
-	tabThreads[2].content[1] = new Block($('canvas'), 2, 1, '#ff0000', tabMutex["m2"]);
-	
-	tabThreads[0].content[2] = new Block($('canvas'), 0, 1, '#0000ff', tabBarriere["b1"]);
-	tabThreads[1].content[2] = new Block($('canvas'), 1, 1, '#0000ff', tabBarriere["b1"]);
-	tabThreads[2].content[2] = new Block($('canvas'), 2, 1, '#0000ff', tabBarriere["b1"]);*/
-
     tick();
 };
 
@@ -46,17 +34,6 @@ function draw() {
         height: canvas.height,
         fromCenter: false
     });
-
-    //Microprocesseur
-    /*$('canvas').drawRect({
-		name: 'thread',
-		layer: true,
-        fillStyle: '#fdff3d',
-        x:posX, y: 100,
-        width: 100,
-        height: 100,
-        fromCenter: true
-    });*/
 
 	for (var i = 0; i < tabThreads.length; i++) {
 		tabThreads[i].draw();
@@ -89,7 +66,7 @@ function tick() {
 			changeThread();
 		}
 	}
-	
+
 	requestAnimationFrame(tick);
 	resize();
 	draw();
