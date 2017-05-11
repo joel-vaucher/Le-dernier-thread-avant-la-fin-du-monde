@@ -17,15 +17,8 @@ window.onload = function(){
     canvas.width = parseInt(displayWidth * 0.8);
     canvas.height =  parseInt(displayHeight * 0.8);
 
-	tabThreads.push(new Thread(100, $('canvas'), 0));
-	tabThreads.push(new Thread(200, $('canvas'), 1));
-	tabThreads.push(new Thread(300, $('canvas'), 2));
+	changeNbThread();
 	tabThreads[0].color = '#0000ff';
-
-	tabMutex["m1"] = new Mutex();
-	tabMutex["m2"] = new Mutex();
-	tabSemaphore["s1"] = new Semaphore(2);
-	tabBarriere["b1"] = new Barriere(3);
 
 	/*tabThreads[0].content[0] = new Block($('canvas'), 0, 0, '#00ff00', tabSemaphore["s1"]);
 	tabThreads[1].content[0] = new Block($('canvas'), 1, 0, '#00ff00', tabSemaphore["s1"]);
@@ -42,7 +35,7 @@ window.onload = function(){
     tick();
 };
 
-function  drawMicroProcesseur() {
+function drawMicroProcesseur() {
 
    //background
     $('canvas').drawRect({
@@ -134,4 +127,18 @@ function restate() {
 
 function startStop(){
 	start = !start;
+}
+
+function changeNbThread(){
+    var nbThreads = $("#spinThreads").val();
+	while(nbThreads < tabThreads.length){
+		tabThreads.splice(tabThreads.length-1,1);
+	}
+	for(var i = tabThreads.length; i < nbThreads; i++){
+		tabThreads.push(new Thread(100 + i*100, $('canvas'), i));
+	}
+	if(index > tabThreads.length-1){
+		index=0;
+		tabThreads[0].color = '#0000ff';
+	}
 }

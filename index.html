@@ -20,23 +20,43 @@
                 <canvas id="canvas"></canvas>
             </div>
             <div class="down-half">
-                <form method="get" onsubmit="return restate();">
-                    <span id="selection"></span><br/>
-                    Name: <input type="text" name="strucname" id="strucname"/>
-                    <br/>
-                    N:<input type="text" name="strucN" id="strucN"/>
-                    <br/>
-                    <input type="radio" name="state" id="staterien" value="0">
-                    <span>rien</span>
-                    <input type="radio" name="state" id="statemutex" value="1">
-                    <span>mutex</span>
-                    <input type="radio" name="state" id="statesemaphore" value="2">
-                    <span>semaphore</span>
-                    <input type="radio" name="state" id="statebarrier" value="3">
-                    <span>barrier</span>
-                    <input type="submit" value="restate"/>
-                </form>
-				<button onclick="startStop()">start/stop</button>
+				<table border="0">
+					<form method="get" onsubmit="return restate();">
+						<tr>
+						<td><span id="selection"></span><br/></td>
+						</tr>
+						<tr>
+						<td>Name:</td><td colspan="2"> <input type="text" name="strucname" id="strucname"/></td>
+						</tr>
+						<tr>
+						<td>N:</td><td colspan="2"><input type="text" name="strucN" id="strucN"/></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="state" id="staterien" value="0">
+								<span>rien</span>
+								<br/>
+								<input type="radio" name="state" id="statemutex" value="1">
+								<span>mutex</span>
+							</td>
+							<td>
+								<input type="radio" name="state" id="statesemaphore" value="2">
+								<span>semaphore</span>
+								<br/>
+								<input type="radio" name="state" id="statebarrier" value="3">
+								<span>barrier</span>
+							</td>
+							<td><input type="submit" value="restate"/></td>
+						
+						</tr>
+					</form>
+					<tr>
+						<td><button onclick="startStop()">start/stop</button></td>
+					</tr>
+					<tr>
+						<td><input id="spinThreads"type="number" min="2" max="10" step="1" value="3" onchange="changeNbThread()"></td>
+					</tr>
+				</table>
             </div>
         </div>
         <div class="right-half">

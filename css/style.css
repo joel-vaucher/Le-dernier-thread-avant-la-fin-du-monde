@@ -17,7 +17,7 @@
 }
 .right-half {
     position: absolute;
-    background-color: #01b600;
+    background-color: #dddddd;
     top: 0;
     right: 0;
     left: 80%;
@@ -34,9 +34,10 @@
 }
 .down-half {
     position: absolute;
-    background-color: #0013b6;
+    background-color: #eeeeee;
     top: 80%;
     right: 0;
     left: 0;
     bottom: 0;
+	padding-left: 10px;
 }
