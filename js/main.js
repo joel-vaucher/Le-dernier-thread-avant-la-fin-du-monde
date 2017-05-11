@@ -113,12 +113,16 @@ function restate() {
         } else if (isSemaphore) {
             if(!(name in tabSemaphore)){
                 tabSemaphore[name] = new Semaphore(n);
-            }
+            }else{
+				tabSemaphore[name].nbThreadMax = n;
+			}
             tabThreads[idt].content[idb] = new Block($('canvas'), idt, idb, '#00ff00', tabSemaphore[name]);
         } else if (isBarriere) {
             if(!(name in tabBarriere)){
                 tabBarriere[name] = new Barriere(n);
-            }
+            }else{
+				tabBarriere[name].nbThreadMax = n;
+			}
             tabThreads[idt].content[idb] = new Block($('canvas'), idt, idb, '#0000ff', tabBarriere[name]);
         }
     }
